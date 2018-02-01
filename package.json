@@ -1,0 +1,25 @@
+{
+  "name": "phoneparser",
+  "version": "1.0.0",
+  "description": "Phonenumber parser",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Micluc/phoneParser.git"
+  },
+  "author": "Lucas \"Micluc\" Verbeke",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Micluc/phoneParser/issues"
+  },
+  "homepage": "https://github.com/Micluc/phoneParser#readme",
+  "dependencies": {
+    "express": "^4.16.2",
+    "google-libphonenumber": "^3.0.10",
+    "multer": "^1.3.0",
+    "nodemon": "^1.14.11"
+  }
+}
