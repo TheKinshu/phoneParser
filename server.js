@@ -60,7 +60,7 @@ app.post('/api/phoneNumbers/parse/file', function(req, res) {
 		var buffer = fs.readFileSync(req.file.path);
 		buffer.toString().split(/\n/).forEach(function(line){
 			try{
-				var numTemp = line.replace(regMatch, '');	//get rid of alphabetic characters
+				var numTemp = line.replace(regMatch, '');
 				var temp = phoneUtil.parse(numTemp,'CA');
 				if(!isEmpty(temp) && phoneUtil.isValidNumber(temp)){
 					list.push(phoneUtil.format(temp,PNF.INTERNATIONAL));
@@ -68,7 +68,7 @@ app.post('/api/phoneNumbers/parse/file', function(req, res) {
 				
 			}
 			catch(err){
-				//res.status(400).send(list);
+				res.status(400).send(list);
 			}
 
 		});
