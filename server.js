@@ -44,7 +44,7 @@ var storage = multer.diskStorage({
 
 app.post('/api/phoneNumbers/parse/file', function(req, res) {
 	var list = [];
-	var regMatch = /^[a-z]*$/gi
+	var regMatch = /\D/g;
 	var upload = multer({
 		storage: storage,
 		fileFilter: function(req, file, callback) {
@@ -55,17 +55,22 @@ app.post('/api/phoneNumbers/parse/file', function(req, res) {
 			callback(null, true)
 		}
 	}).single('userFile');
+	console.log("working");
 	upload(req, res, function(err) {
 		var buffer = fs.readFileSync(req.file.path);
 		buffer.toString().split(/\n/).forEach(function(line){
-			if(regMatch.test(line)){
+			try{
+				var numTemp = line.replace(regMatch, '');
+				var temp = phoneUtil.parse(numTemp,'CA');
+				if(!isEmpty(temp) && phoneUtil.isValidNumber(temp)){
+					list.push(phoneUtil.format(temp,PNF.INTERNATIONAL));
+				}
+				
 			}
-			else{
-				var temp = phoneUtil.parse(line,'CA');
+			catch(err){
+				res.status(400).send(list);
 			}
-			if(!isEmpty(temp)){
-				list.push(phoneUtil.format(temp,PNF.INTERNATIONAL));
-			}
+
 		});
 		res.status(200).send(list);
 	})
