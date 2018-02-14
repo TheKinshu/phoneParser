@@ -4,12 +4,12 @@
 
 Make sure you have Node.js and express
 ```
-$ npm install xpress --save
+$ npm install express --save
 ```
 
 ### How to use
 
-Once all the dependecies are installed type
+Once all the dependencies are installed type
 
 ```
 $ node server
