@@ -3,7 +3,6 @@ const app = express();
 const router = express.Router();
 const multer = require('multer');
 
-
 var path = require('path');
 var upload = multer({ dest: 'uploads/' });
 var PNF = require('google-libphonenumber').PhoneNumberFormat;
@@ -22,12 +21,7 @@ router.get('/api/phonenumbers/parse/text/:number', (req, res) => {
 		else {
 			var temp = "";
 			temp = num.toString();
-			if((temp.charAt(0) == "1" && num.length == 11)){
-				var phoneNumber = phoneUtil.parse(num, 'CA');
-				list.push(phoneUtil.format(phoneNumber, PNF.INTERNATIONAL));
-				res.status(200).send(list);
-			}
-			else if(num.length == 10){
+			if((temp.charAt(0) == "1" && num.length == 11) || num.length == 10){
 				var phoneNumber = phoneUtil.parse(num, 'CA');
 				list.push(phoneUtil.format(phoneNumber, PNF.INTERNATIONAL));
 				res.status(200).send(list);
