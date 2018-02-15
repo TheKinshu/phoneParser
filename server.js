@@ -14,14 +14,25 @@ var hasOwnProperty = Object.prototype.hasOwnProperty;
 
 router.get('/api/phonenumbers/parse/text/:number',(req, res) => {
 	var list = [];
+
 	if(req.params.number == 'nothing' || req.params.number == ''){
 		res.status(400).send([]);
 	}
 	else{
-		var num = req.params.number;
-		var phoneNumber = phoneUtil.parse(num,'CA');
-		list.push(phoneUtil.format(phoneNumber, PNF.INTERNATIONAL));
-		res.status(200).send(list);
+		var num = req.params.number.toString().replace(/\D/g, '');;
+		if(num.length > 11 || num.length < 10 ){
+			res.status(400).send('Phone Number not recognize, please try again.');
+		}
+		else{
+			try{
+				var phoneNumber = phoneUtil.parse(num,'CA');
+				list.push(phoneUtil.format(phoneNumber, PNF.INTERNATIONAL));
+				res.status(200).send(list);
+			}
+			catch(err){
+				res.status(400).send('Phone Number not recognize.');
+			}
+		}
 	}
 });
 
